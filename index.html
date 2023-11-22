@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- displays site properly based on user's device -->
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png" />
 
   <title>Frontend Mentor | Multi-step form</title>
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css" />
 
   <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
   <style>
@@ -26,19 +26,18 @@
 
 <body>
   <main>
+    <!-- SIDEBAR -->
 
-    <section class="sidebar">
-
-      <div class="step-1">
+    <section id="sidebar">
+      <div class="steps step-1">
         <div class="btn btn1 active">1</div>
         <div class="btn-info">
           <span>Step 1</span>
           <p>Your Info</p>
         </div>
-
       </div>
 
-      <div class="step-2">
+      <div class="steps step-2">
         <div class="btn btn2">2</div>
         <div class="btn-info">
           <span>Step 2</span>
@@ -46,7 +45,7 @@
         </div>
       </div>
 
-      <div class="step-3">
+      <div class="steps step-3">
         <div class="btn btn3">3</div>
         <div class="btn-info">
           <span>Step 3</span>
@@ -54,74 +53,223 @@
         </div>
       </div>
 
-      <div class="step-4">
+      <div class="steps step-4">
         <div class="btn btn4">4</div>
         <div class="btn-info">
           <span>Step 4</span>
-          <p>Summary
+          <p>Summary</p>
         </div>
       </div>
     </section>
 
+    <section id="mainpage">
 
-    <section class="personal-info">
-      <h1>Personal info</h1>
-      <p>Please provide your name, email address, and phone number.</p>
+      <section class="page personal-info ">
+        <h1>Personal info</h1>
+        <p>Please provide your name, email address, and phone number.</p>
 
-      <form action="./plan.html">
+        <form action="./plan.html">
+          <label for="name">
+            Name
+            <input type="text" name="fullname" id="name" placeholder="e.g. Stephen King" required />
+          </label>
 
-        <label for="name">
-          Name
-          <input type="text" name="fullname" id="name" placeholder="e.g. Stephen King" required>
-        </label>
+          <label for="email">
+            Email Address
+            <input type="email" name="emailAddress" id="email" placeholder=" e.g. stephenking@lorem.com" required />
+          </label>
 
-        <label for="email">
-          Email Address
-          <input type="email" name="fullname" id="email" placeholder=" e.g. stephenking@lorem.com" required>
-        </label>
+          <label for="phone-number">
+            Phone Number
+            <input type="number" name="phoneNumber" id="phone-number" placeholder="e.g. +1 234 567 890" required
+              class="no-spinners" />
+          </label>
 
-        <label for="phone-number">
-          Phone Number
-          <input type="tel" name="fullname" id="phone-number" placeholder="e.g. +1 234 567 890" required>
-        </label>
+        </form>
+      </section>
 
-        <div class="nav">
-          <div class="empty"></div>
-          <button type="submit">
-            Next Step
-          </button>
-        </div>
+      <!-- PLAN SECTION -->
 
-      </form>
+      <section class="page plans-info hidden">
+
+        <h1>Select your plan</h1>
+        <p>You have the option of monthly or yearly billing.</p>
+
+        <section id="plans">
+          <!-- <div class="plans">
+            <div class="arcade-plan plan active">
+              <img src="./assets/images/icon-arcade.svg" alt="acarde-image" />
+              <div>
+                <p>Arcade</p>
+                <span class="plan-prices">$9/mo</span>
+              </div>
+            </div>
+
+            <div class="advanced-plan plan">
+              <img src="./assets/images/icon-advanced.svg" alt="game-pad-icon" />
+              <div>
+                <p>Advanced</p>
+                <span class="plan-prices">$12/mo</span>
+              </div>
+            </div>
+
+            <div class="pro-plan plan">
+              <img src="./assets/images/icon-pro.svg" alt="" />
+              <div>
+                <p>Pro</p>
+                <span class="plan-prices">$15/mo</span>
+              </div>
+            </div>
+          </div> -->
+
+          <form class="plans">
+            <div>
+              <input type="radio" name="plan" id="arcade-plan" class="hidden">
+              <label for="arcade-plan" class="arcade-plan plan">
+                <img src="./assets/images/icon-arcade.svg" alt="acarde-image" />
+                <div>
+                  <p class="plan-type">Arcade</p>
+                  <span class="plan-prices">$9/mo</span>
+                </div>
+              </label>
+            </div>
+
+            <div>
+              <input type="radio" name="plan" id="advanced-plan" class="hidden">
+              <label for="advanced-plan" class="advanced-plan plan">
+                <img src="./assets/images/icon-advanced.svg" alt="game-pad-icon" />
+                <div>
+                  <p class="plan-type">Advanced</p>
+                  <span class="plan-prices">$12/mo</span>
+                </div>
+              </label>
+            </div>
+
+            <div>
+              <input type="radio" name="plan" id="pro-plan" class="hidden">
+              <label for="pro-plan" class="pro-plan plan">
+                <img src="./assets/images/icon-pro.svg" alt="game-pad-icon" />
+                <div>
+                  <p class="plan-type">Pro</p>
+                  <span class="plan-prices">$15/mo</span>
+                </div>
+              </label>
+            </div>
+
+          </form>
+          <div class="period">
+            <p class="month-plan act">Monthly</p>
+            <div class="toggle">
+              <div class="slider"></div>
+            </div>
+            <p class="year-plan">Yearly</p>
+          </div>
+        </section>
+
+      </section>
+
+      <!-- ADD-ONs -->
+
+      <section class="page add-ons-info hidden ">
+
+        <h1>Pick add-ons</h1>
+        <p>Add-ons help enhance your gaming experience.</p>
+
+        <section id="add-ons">
+
+          <div class="add-ons">
+            <label for="online-service">
+              <div class="add-ons-type">
+                <input type="checkbox" name="online-service" id="online-service" value="Online Service">
+                <div>
+                  <p>Online service</p>
+                  <span> Access to multiplayer games</span>
+                </div>
+              </div>
+
+              <div class="add-ons-price">+$1/mo</div>
+            </label>
+
+            <label for="larger-stroage">
+              <div class="add-ons-type">
+                <input type="checkbox" name="larger-stroage" id="larger-stroage" value="Larger Stroage">
+                <div>
+                  <p>Larger storage</p>
+                  <span> Extra 1TB of cloud save</span>
+                </div>
+              </div>
+
+              <div class="add-ons-price">+$2/mo</div>
+            </label>
+
+            <label for="customizable-profile">
+              <div class="add-ons-type">
+                <input type="checkbox" name="customizable-profile" id="customizable-profile"
+                  value="Customizable Profile">
+                <div>
+                  <p>Customizable Profile</p>
+                  <span>Custom theme on your profile</span>
+                </div>
+              </div>
+
+              <div class=" add-ons-price">+$<span>2</span>/mo
+              </div>
+            </label>
+
+          </div>
+
+        </section>
+
+      </section>
+
+      <!-- SUMMARY SECTION  -->
+      <section class="page summary-info hidden ">
+
+        <h1>Finishing up</h1>
+        <p>Double-check everything looks OK before confirming.</p>
+
+        <section id="summary">
+
+          <div class="plan-summary-details">
+
+            <div>
+              <div class="plan-summary">
+                <span class="plan-picked"></span>
+                <span class="plan-duration-summary"></span>
+              </div>
+
+              <span class="change-plan">Change</s>
+            </div>
+
+            <div class="plan-picked-price"></div>
+          </div>
+
+          <hr>
+          <div class="addOns-picked">
+            <div class="addOns-type">
+              <span class="addOn-type"></span>
+              <span class="addOn-price"></span>
+            </div>
+
+          </div>
+        </section>
+
+      </section>
+
+      <div class="nav">
+        <p class="prevBtn">Go back</p>
+        <button class="nextBtn" type="submit">Next Step</button>
+      </div>
+
     </section>
+
   </main>
 
-  <!-- Step 3 start -->
-
-  <!-- Pick add-ons
-  Add-ons help enhance your gaming experience.
-
-  Online service
-  Access to multiplayer games
-  +$1/mo
-
-  Larger storage
-  Extra 1TB of cloud save
-  +$2/mo
-
-  Customizable Profile
-  Custom theme on your profile
-  +$2/mo
-
-  Go Back
-  Next Step -->
 
   <!-- Step 3 end -->
 
   <!-- Step 4 start -->
 
-  <!-- Finishing up
-  Double-check everything looks OK before confirming. -->
 
   <!-- Dynamically add subscription and add-on selections here -->
 
@@ -142,10 +290,12 @@
 
   Step 5 end -->
 
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
-    Coded by <a href="#">Morin Sultan</a>.
-  </div>
+  <!-- <div class="attribution">
+    Challenge by
+    <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. Coded by <a
+      href="#">Morin Sultan</a>.
+  </div> -->
+  <script src="./main.js"></script>
 </body>
 
 </html>
