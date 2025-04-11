@@ -15,16 +15,9 @@ const toggleBtn = document.querySelector(".toggle"),
   planInput = document.querySelectorAll("input[type='radio']"),
   //Summary Section Element
   summaryContainer = document.getElementById("summary");
-
-const state = {
-  currentStep: 0,
-  selectedPlan: {
-    type: "monthly",
-    price: 9,
-    index: 0,
-  },
-  addOns: new Set(),
-};
+//// Setting default value
+let currentState = 0;
+let price = 9;
 
 //Data
 const monthly = {
@@ -53,7 +46,7 @@ const yearly = {
 
 window.addEventListener(
   "DOMContentLoaded",
-  () => state.currentStep == 0 && prevBtn.classList.add("hide-el")
+  () => currentState == 0 && prevBtn.classList.add("hide-el")
 );
 
 //Summary Section Element
@@ -66,84 +59,74 @@ const planSummaryDetails = document.querySelector(".plan-summary-details"),
 //NEXT BUTTON AND PREV BUTTON
 nextBtn.addEventListener("click", function (e) {
   e.preventDefault();
-
-  let allValid = true;
-
-  if (state.currentStep === 0) {
-    const inputs = pages[0].querySelectorAll("input[required]");
-
-    inputs.forEach((input) => {
-      if (!input.checkValidity()) {
-        allValid = false;
-        input.parentElement.classList.add("error");
-        const errMsg = input.parentElement.querySelector(".err-msg");
-        errMsg.textContent = "This field is required";
-
-        setTimeout(() => {
-          input.parentElement.classList.remove("error");
-        }, "3000");
-      }
-    });
-  }
-
-  if (state.currentStep === 3) {
-    pages[state.currentStep].classList.add("hidden");
+  if (currentState === 3) {
+    pages[currentState].classList.add("hidden");
     pages[4].classList.remove("hidden");
     nav.classList.add("hide-navbtn");
     return;
   }
+  const inputs = pages[0].querySelectorAll("input[required]");
 
-  ///localstroage here
+  let allValid = true;
+  inputs.forEach((input) => {
+    if (!input.checkValidity()) {
+      allValid = false;
+      input.parentElement.classList.add("error");
+      console.log(input.parentElement.querySelector(".err-msg"));
+      const errMsg = input.parantElement.querySelector(".err-msg");
+      errMsg.textContent = "This field is required";
+
+      setTimeout(() => {
+        input.parentElement.classList.remove("error");
+      }, "3000");
+    }
+  });
+
+  // localstroage here
 
   if (allValid) {
-    pages[state.currentStep].classList.add("hidden");
-    sidebarBtn[state.currentStep].classList.remove("active");
+    pages[currentState].classList.add("hidden");
+    sidebarBtn[currentState].classList.remove("active");
 
-    state.currentStep < 3 && state.currentStep++;
+    currentState < 3 && currentState++;
 
-    state.currentStep > 0 && prevBtn.classList.remove("hide-el");
-    state.currentStep === 3 && (nextBtn.textContent = "Confirm");
+    currentState > 0 && prevBtn.classList.remove("hide-el");
+    currentState === 3 && (nextBtn.textContent = "Confirm");
 
-    if (pages[state.currentStep].classList.contains("hidden")) {
-      pages[state.currentStep].classList.remove("hidden");
-      sidebarBtn[state.currentStep].classList.add("active");
+    if (pages[currentState].classList.contains("hidden")) {
+      pages[currentState].classList.remove("hidden");
+      sidebarBtn[currentState].classList.add("active");
     }
   }
 });
 
 prevBtn.addEventListener("click", function () {
-  pages[state.currentStep].classList.add("hidden");
-  sidebarBtn[state.currentStep].classList.remove("active");
-  state.currentStep === 0 ? (state.currentStep = 0) : state.currentStep--;
-  state.currentStep === 0 && prevBtn.classList.add("hide-el");
-
-  if (state.currentStep < 3) {
+  pages[currentState].classList.add("hidden");
+  sidebarBtn[currentState].classList.remove("active");
+  currentState === 0 ? (currentState = 0) : currentState--;
+  currentState === 0 && prevBtn.classList.add("hide-el");
+  if (currentState < 3) {
     nextBtn.textContent = "Next Step";
   }
 
-  if (pages[state.currentStep].classList.contains("hidden")) {
-    pages[state.currentStep].classList.remove("hidden");
-    sidebarBtn[state.currentStep].classList.add("active");
+  if (pages[currentState].classList.contains("hidden")) {
+    pages[currentState].classList.remove("hidden");
+    sidebarBtn[currentState].classList.add("active");
   }
 });
 
 //Updating the plan picked UI in the summary
 const updatePlan = function (plan, index) {
-  state.selectedPlan = {
-    type: slider.classList.contains("slider-active") ? "yearly" : "monthly",
-    plan: plan.planType[index],
-    price: plan.planPrices[index],
-    index: index,
-  };
-
+  const id = Number(index);
   return `<div>
               <div class="plan-summary">
-                <span class="plan-picked">${plan.planType[index]}</span>
+                <span class="plan-picked">${plan.planType[id]}</span>
                 <span class="plan-duration-summary">(${plan.planName})</span>
               </div>
               <span class="change-plan">Change</span>
             </div>
-            <div class="plan-picked-price">$${plan.planPrices[index]}/${plan.planDuration}</div>
+
+            <div class="plan-picked-price">$${plan.planPrices[id]}/${plan.planDuration}</div>
           </div>`;
 };
 
@@ -152,14 +135,11 @@ planSummaryDetails.innerHTML = updatePlan(monthly, 0);
 planInput.forEach((planInp, id) => {
   planInp.addEventListener("change", function () {
     const durationType = slider.classList.contains("slider-active");
-    state.selectedPlan.price = durationType
-      ? yearly.planPrices[id]
-      : monthly.planPrices[id];
+    price = durationType ? yearly.planPrices[id] : monthly.planPrices[id];
     const planChoose = durationType
       ? updatePlan(yearly, id)
       : updatePlan(monthly, id);
     planSummaryDetails.innerHTML = planChoose;
-    updateTotalPrice();
   });
 });
 
@@ -170,7 +150,7 @@ const addOnsContainer = document.querySelector(".add-ons");
 const addOnsContents = function (addOnPackage) {
   const { addsOnPrices, addsOnTypeDetails, addsOnType, planDuration } =
     addOnPackage;
-
+  // console.log(addOnPackage, addOnPackage.planPrices[0]);
   const addOnsHtml = addsOnType
     .map(
       (type, id) => `
@@ -182,6 +162,7 @@ const addOnsContents = function (addOnPackage) {
                   <span> ${addsOnTypeDetails[id]}</span>
                 </div>
               </div>
+
               <div class="add-ons-price">+$${addsOnPrices[id]}/${planDuration}</div>
             </label>
     `
@@ -192,6 +173,8 @@ const addOnsContents = function (addOnPackage) {
 
 //Initialzing the addOnsContainer
 addOnsContainer.innerHTML = addOnsContents(monthly);
+
+const addOnOption = new Set();
 
 //selecting addons
 const thePickAddOns = function () {
@@ -209,64 +192,68 @@ const thePickAddOns = function () {
       let value = checkedAddon.value;
 
       if (checkedAddon.checked) {
-        state.addOns.add(value);
+        addOnOption.add(value); // Add value to the Set if checked
       } else {
-        state.addOns.delete(value);
+        addOnOption.delete(value); // Remove value from the Set if unchecked
       }
 
-      updateAddOnsSummary(addOnPackage);
-      updateTotalPrice();
+      let addonsSummary = Array.from(addOnOption);
+      const addOnsResult = addonsSummary
+        .map(function (result) {
+          // Find the correct index of the add-on to get the price
+          const addOnIndex = addOnPackage.addsOnType.indexOf(result);
+          const price = addOnPackage.addsOnPrices[addOnIndex];
+
+          return ` <div class="addOns-type">
+                    <span class="addOn-type">${result}</span>
+                    <span class="addOn-price">+$${price}/${addOnPackage.planDuration}</span>
+                  </div>`;
+        })
+        .join("");
+      addOnSummary.innerHTML = addOnsResult;
     });
   });
 };
 
-const updateAddOnsSummary = function (addOnPackage) {
-  const addonsSummary = Array.from(state.addOns);
-
-  const addOnsResult = addonsSummary
-    .map(function (result) {
-      const addOnIndex = addOnPackage.addsOnType.indexOf(result);
-      const price = addOnPackage.addsOnPrices[addOnIndex];
-
-      return `<div class="addOns-type">
-              <span class="addOn-type">${result}</span>
-              <span class="addOn-price">+$${price}/${addOnPackage.planDuration}</span>
-            </div>`;
-    })
-    .join("");
-
-  addOnSummary.innerHTML = addOnsResult;
-};
-
 //initalization
 thePickAddOns();
+
+//Work on the add ons section
+// Total Price
+// create a function
+
+//The thank you section
 
 //Rector HTML code
 // Refactor CSS code
 
 // Duration Type
 slider.addEventListener("click", () => {
-  state.addOns.clear();
+  addOnOption.clear();
   addOnSummary.innerHTML = "";
-
+  // thePickAddOns(); to clear the addon summary part
   slider.classList.toggle("slider-active");
   yearBtn.classList.toggle("active-plan");
   monthBtn.classList.toggle("active-plan");
 
-  const isYearly = yearBtn.classList.contains("active-plan");
-  const plan = isYearly ? yearly : monthly;
-
-  planInput[state.selectedPlan.index].checked = true;
-
-  planPrices.forEach((priceElement, id) => {
-    priceElement.textContent = `+$${plan.planPrices[id]}/${plan.planDuration}`;
-  });
-
-  addOnsContainer.innerHTML = addOnsContents(plan);
-  planSummaryDetails.innerHTML = updatePlan(plan, state.selectedPlan.index);
-
+  if (yearBtn.classList.contains("active-plan")) {
+    planInput[0].checked = true;
+    price = 90;
+    planSummaryDetails.innerHTML = updatePlan(yearly, "0");
+    addOnsContainer.innerHTML = addOnsContents(yearly);
+    planPrices.forEach((price, id) => {
+      price.textContent = `+$${yearly.planPrices[id]}/${yearly.planDuration}`;
+    });
+  } else if (monthBtn.classList.contains("active-plan")) {
+    planInput[0].checked = true;
+    price = 9;
+    planSummaryDetails.innerHTML = updatePlan(monthly, "0");
+    addOnsContainer.innerHTML = addOnsContents(monthly);
+    planPrices.forEach((price, id) => {
+      price.textContent = `+$${monthly.planPrices[id]}/${monthly.planDuration}`;
+    });
+  }
   thePickAddOns();
-  updateTotalPrice();
 });
 
 document.addEventListener("click", function (e) {
@@ -305,6 +292,3 @@ const updateTotalPrice = function () {
     <span class="total-amount">$${total}/${duration}</span>
   `;
 };
-
-// Call this function whenever prices or selections change
-// (after plan changes, add-on changes, etc.)
