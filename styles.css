@@ -6,7 +6,7 @@
   --purplish-blue: hsl(243, 100%, 62%);
   --pastel-blue: hsl(228, 100%, 84%);
   --light-blue: hsl(206, 94%, 87%);
-  --strawberry-red: hsl(354, 84%, 57%);
+  --strawberry-red: hsl(345, 1.90%, 40.80%);
   --cool-gray: hsl(231, 11%, 63%);
   --light-gray: hsl(229, 24%, 87%);
   --magnolia: hsl(217, 100%, 97%);
@@ -43,16 +43,6 @@ img {
   max-width: 100%;
 }
 
-/* p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  overflow-wrap: break-word;
-} */
-
 a {
   text-decoration: none;
   color: inherit;
@@ -70,6 +60,12 @@ select {
   display: none;
 }
 
+.hide-el {
+  opacity: 0;
+}
+
+
+
 /* main style */
 
 body {
@@ -83,16 +79,15 @@ body {
 }
 
 main {
-  max-width: 1500px;
   min-height: 450px;
   margin: 0 auto;
   background-color: var(--white);
   padding: 1em 1em 1em 0.8em;
-  padding-left: 0.8em;
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 5em;
   border-radius: 10px;
+  position: relative;
 }
 
 /* SIDEBAR */
@@ -153,7 +148,11 @@ main {
   font-weight: var(--ff-lg);
 }
 
-#mainpage {
+#form {
+  position: relative;
+}
+
+form {
   position: relative;
 }
 
@@ -202,9 +201,27 @@ main {
   color: var(--cool-gray);
 }
 
+label span {
+  display: flex;
+  justify-content: space-between;
+}
+
+label span.err-msg {
+  color: var(--strawberry-red);
+  opacity: 0;
+}
+
 input:is(:active, :hover) {
   border: 2px solid var(--purplish-blue);
   cursor: pointer;
+}
+
+label.error input {
+  border: 2px solid var(--strawberry-red);
+}
+
+label.error .err-msg {
+  opacity: 100;
 }
 
 /* SECOND PAGE  || Plan section */
@@ -273,7 +290,7 @@ input[type="radio"]:checked~label {
   margin: 3px 30px;
 }
 
-.period p.act {
+.period p.active-plan {
   color: var(--marine-blue);
   font-weight: var(--ff-lg);
 }
@@ -305,7 +322,7 @@ input[type="radio"]:checked~label {
   gap: 1em;
 }
 
-#add-ons label {
+.add-ons label {
   padding: 20px;
   border: 1px solid var(--light-gray);
   display: flex;
@@ -315,14 +332,14 @@ input[type="radio"]:checked~label {
   border-radius: 10px;
 }
 
-#add-ons input[type="checkbox"] {
+.add-ons input[type="checkbox"] {
   border: unset;
   width: 20px;
   margin: unset;
   margin-right: 20px;
 }
 
-#add-ons label:focus-within {
+.add-ons label:focus-within {
   border: 1px solid var(--purplish-blue);
 }
 
@@ -349,10 +366,20 @@ input[type="radio"]:checked~label {
   color: var(--purplish-blue);
 }
 
+/* Checkout */
 .addOns-picked {
   display: flex;
   flex-direction: column;
   gap: 2em;
+}
+
+.addOns-type {
+  display: inherit;
+  justify-content: space-between;
+}
+
+.addOn-type {
+  color: var(--cool-gray);
 }
 
 /* SUMMARY SECTION */
@@ -383,13 +410,28 @@ input[type="radio"]:checked~label {
 .change-plan:hover {
   cursor: pointer;
   color: var(--purplish-blue);
-font-weight: var(--ff-md);
+  font-weight: var(--ff-md);
 }
 
 #summary hr {
   margin: 30px 0;
-  border:solid 1px var(--light-gray);
+  border: solid 1px var(--light-gray);
 }
+
+.summary-info {
+  text-align: center;
+}
+
+.summary-info img {
+  margin: 180px auto 20px;
+  width: 80px;
+}
+
+.summary-info p {
+  margin: 16px auto 0;
+  width: 400px;
+}
+
 
 /*  */
 .nav {
@@ -427,3 +469,69 @@ button:hover {
   font-weight: var(--ff-lg);
   cursor: pointer;
 }
+
+/* Mobile Viewport */
+
+@media (max-width:800px) {
+  main {
+    grid-template-columns: repeat(1, 1fr);
+    position: relative;
+    background-color: var(--magnolia);
+    gap: unset;
+    height: 800px;
+    padding: unset;
+    width: 500px;
+  }
+
+  #sidebar {
+    background-image: url(./assets/images/bg-sidebar-mobile.svg);
+    display: flex;
+    gap: 1em;
+    height: 200px;
+    width: 100%;
+    align-items: center;
+  }
+
+  #sidebar .steps {
+    height: min-content;
+  }
+
+  #sidebar .btn-info {
+    display: none;
+  }
+
+  #mainpage {
+    display: flex;
+    top: 150px;
+    background-color: var(--white);
+    margin: 0 2em;
+    padding: 0 1em;
+    border-radius: 10px;
+  }
+}
+
+.hide-navbtn {
+  display: none;
+}
+
+/* input:invalid {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20%,
+  60% {
+    transform: translateX(-5px);
+  }
+
+  40%,
+  80% {
+    transform: translateX(5px);
+  }
+} */

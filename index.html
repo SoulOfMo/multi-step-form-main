@@ -4,31 +4,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- displays site properly based on user's device -->
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png" />
 
   <title>Frontend Mentor | Multi-step form</title>
   <link rel="stylesheet" href="./styles.css" />
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution {
-      font-size: 11px;
-      text-align: center;
-    }
-
-    .attribution a {
-      color: hsl(228, 45%, 44%);
-    }
-  </style>
 </head>
 
 <body>
   <main>
     <!-- SIDEBAR -->
 
-    <section id="sidebar">
+    <aside id="sidebar">
       <div class="steps step-1">
         <div class="btn btn1 active">1</div>
         <div class="btn-info">
@@ -60,233 +48,164 @@
           <p>Summary</p>
         </div>
       </div>
-    </section>
+    </aside>
 
-    <section id="mainpage">
+    <form>
+      <div id="mainpage">
+        <div class="page personal-info">
+          <h1>Personal info</h1>
+          <p>Please provide your name, email address, and phone number.</p>
 
-      <section class="page personal-info ">
-        <h1>Personal info</h1>
-        <p>Please provide your name, email address, and phone number.</p>
-
-        <form action="./plan.html">
-          <label for="name">
-            Name
-            <input type="text" name="fullname" id="name" placeholder="e.g. Stephen King" required />
-          </label>
-
-          <label for="email">
-            Email Address
-            <input type="email" name="emailAddress" id="email" placeholder=" e.g. stephenking@lorem.com" required />
-          </label>
-
-          <label for="phone-number">
-            Phone Number
-            <input type="number" name="phoneNumber" id="phone-number" placeholder="e.g. +1 234 567 890" required
-              class="no-spinners" />
-          </label>
-
-        </form>
-      </section>
-
-      <!-- PLAN SECTION -->
-
-      <section class="page plans-info hidden">
-
-        <h1>Select your plan</h1>
-        <p>You have the option of monthly or yearly billing.</p>
-
-        <section id="plans">
-          <!-- <div class="plans">
-            <div class="arcade-plan plan active">
-              <img src="./assets/images/icon-arcade.svg" alt="acarde-image" />
-              <div>
-                <p>Arcade</p>
-                <span class="plan-prices">$9/mo</span>
-              </div>
-            </div>
-
-            <div class="advanced-plan plan">
-              <img src="./assets/images/icon-advanced.svg" alt="game-pad-icon" />
-              <div>
-                <p>Advanced</p>
-                <span class="plan-prices">$12/mo</span>
-              </div>
-            </div>
-
-            <div class="pro-plan plan">
-              <img src="./assets/images/icon-pro.svg" alt="" />
-              <div>
-                <p>Pro</p>
-                <span class="plan-prices">$15/mo</span>
-              </div>
-            </div>
-          </div> -->
-
-          <form class="plans">
-            <div>
-              <input type="radio" name="plan" id="arcade-plan" class="hidden">
-              <label for="arcade-plan" class="arcade-plan plan">
-                <img src="./assets/images/icon-arcade.svg" alt="acarde-image" />
-                <div>
-                  <p class="plan-type">Arcade</p>
-                  <span class="plan-prices">$9/mo</span>
-                </div>
-              </label>
-            </div>
-
-            <div>
-              <input type="radio" name="plan" id="advanced-plan" class="hidden">
-              <label for="advanced-plan" class="advanced-plan plan">
-                <img src="./assets/images/icon-advanced.svg" alt="game-pad-icon" />
-                <div>
-                  <p class="plan-type">Advanced</p>
-                  <span class="plan-prices">$12/mo</span>
-                </div>
-              </label>
-            </div>
-
-            <div>
-              <input type="radio" name="plan" id="pro-plan" class="hidden">
-              <label for="pro-plan" class="pro-plan plan">
-                <img src="./assets/images/icon-pro.svg" alt="game-pad-icon" />
-                <div>
-                  <p class="plan-type">Pro</p>
-                  <span class="plan-prices">$15/mo</span>
-                </div>
-              </label>
-            </div>
-
-          </form>
-          <div class="period">
-            <p class="month-plan act">Monthly</p>
-            <div class="toggle">
-              <div class="slider"></div>
-            </div>
-            <p class="year-plan">Yearly</p>
-          </div>
-        </section>
-
-      </section>
-
-      <!-- ADD-ONs -->
-
-      <section class="page add-ons-info hidden ">
-
-        <h1>Pick add-ons</h1>
-        <p>Add-ons help enhance your gaming experience.</p>
-
-        <section id="add-ons">
-
-          <div class="add-ons">
-            <label for="online-service">
-              <div class="add-ons-type">
-                <input type="checkbox" name="online-service" id="online-service" value="Online Service">
-                <div>
-                  <p>Online service</p>
-                  <span> Access to multiplayer games</span>
-                </div>
-              </div>
-
-              <div class="add-ons-price">+$1/mo</div>
+          <div>
+            <label for="name">
+              <span>Name <span class="err-msg" aria-live="polite"></span></span>
+              <input type="text" name="fullname" id="name" placeholder="e.g. Stephen King" aria-describedby="name-error"
+                required />
             </label>
 
-            <label for="larger-stroage">
-              <div class="add-ons-type">
-                <input type="checkbox" name="larger-stroage" id="larger-stroage" value="Larger Stroage">
-                <div>
-                  <p>Larger storage</p>
-                  <span> Extra 1TB of cloud save</span>
-                </div>
-              </div>
-
-              <div class="add-ons-price">+$2/mo</div>
+            <label for="email">
+              <span>Email Address <span class="err-msg" aria-live="polite"></span></span>
+              <input type="email" name="emailAddress" id="email" placeholder=" e.g. stephenking@lorem.com"
+                aria-describedby="email-error" required />
             </label>
 
-            <label for="customizable-profile">
-              <div class="add-ons-type">
-                <input type="checkbox" name="customizable-profile" id="customizable-profile"
-                  value="Customizable Profile">
-                <div>
-                  <p>Customizable Profile</p>
-                  <span>Custom theme on your profile</span>
-                </div>
-              </div>
-
-              <div class=" add-ons-price">+$<span>2</span>/mo
-              </div>
+            <label for="phone-number">
+              <span>Phone Number<span class="err-msg" aria-live="polite"></span></span>
+              <input type="number" name="phoneNumber" id="phone-number" placeholder="e.g. +1 234 567 890" required
+                aria-describedby="phone-error" class="no-spinners" />
             </label>
 
           </div>
 
-        </section>
 
-      </section>
+        </div>
 
-      <!-- SUMMARY SECTION  -->
-      <section class="page summary-info hidden ">
+        <!-- PLAN SECTION -->
 
-        <h1>Finishing up</h1>
-        <p>Double-check everything looks OK before confirming.</p>
+        <div class="page plans-info hidden">
 
-        <section id="summary">
+          <h1>Select your plan</h1>
+          <p>You have the option of monthly or yearly billing.</p>
 
-          <div class="plan-summary-details">
+          <div id="plans">
 
-            <div>
-              <div class="plan-summary">
-                <span class="plan-picked"></span>
-                <span class="plan-duration-summary"></span>
+            <div class="plans">
+              <div>
+                <input type="radio" name="plan" id="arcade-plan" class="hidden" checked>
+                <label for="arcade-plan" class="arcade-plan plan">
+                  <img src="./assets/images/icon-arcade.svg" alt="acarde-image" />
+                  <div>
+                    <p class="plan-type">Arcade</p>
+                    <span class="plan-prices">$9/mo</span>
+                  </div>
+                </label>
               </div>
 
-              <span class="change-plan">Change</s>
-            </div>
+              <div>
+                <input type="radio" name="plan" id="advanced-plan" class="hidden">
+                <label for="advanced-plan" class="advanced-plan plan">
+                  <img src="./assets/images/icon-advanced.svg" alt="game-pad-icon" />
+                  <div>
+                    <p class="plan-type">Advanced</p>
+                    <span class="plan-prices">$12/mo</span>
+                  </div>
+                </label>
+              </div>
 
-            <div class="plan-picked-price"></div>
+              <div>
+                <input type="radio" name="plan" id="pro-plan" class="hidden">
+                <label for="pro-plan" class="pro-plan plan">
+                  <img src="./assets/images/icon-pro.svg" alt="game-pad-icon" />
+                  <div>
+                    <p class="plan-type">Pro</p>
+                    <span class="plan-prices">$15/mo</span>
+                  </div>
+                </label>
+              </div>
+
+            </div>
+            <div class="period">
+              <p class="month-plan active-plan">Monthly</p>
+              <div class="toggle">
+                <div class="slider"></div>
+              </div>
+              <p class="year-plan">Yearly</p>
+            </div>
           </div>
 
-          <hr>
-          <div class="addOns-picked">
-            <div class="addOns-type">
-              <span class="addOn-type"></span>
-              <span class="addOn-price"></span>
-            </div>
+        </div>
+
+        <!-- ADD-ONs -->
+
+        <div class="page add-ons-info hidden">
+
+          <h1>Pick add-ons</h1>
+          <p>Add-ons help enhance your gaming experience.</p>
+
+          <div class="add-ons hidden">
 
           </div>
-        </section>
+        </div>
 
-      </section>
+        <!-- SUMMARY SECTION  -->
+        <div class="page checkout hidden">
+
+          <h1>Finishing up</h1>
+          <p>Double-check everything looks OK before confirming.</p>
+
+          <div id="summary">
+
+            <div class="plan-summary-details">
+
+              <div>
+                <div class="plan-summary">
+                  <span class="plan-picked"></span>
+                  <span class="plan-duration-summary"></span>
+                </div>
+
+                <span class="change-plan">Change</span>
+              </div>
+
+              <div class="plan-picked-price"></div>
+            </div>
+
+            <hr>
+            <div class="addOns-picked">
+              <div class="addOns-type">
+                <span class="addOn-type"></span>
+                <span class="addOn-price"></span>
+              </div>
+            </div>
+          </div>
+          <div class="total"><span class="total-pacakge"></span> <span class="total-price"></span></div>
+        </div>
+
+        <!-- Step 5 start -->
+        <div class="page summary-info hidden">
+          <img src="./assets/images/icon-thank-you.svg" alt="icon-thank-you">
+          <h2>Thank you!</h2>
+          <p>Thanks for confirming your subscription! We hope you have fun
+            using our platform. If you ever need support, please feel free
+            to email us at morinsultan@gamil.com.</p>
+        </div>
+
+      </div>
+
 
       <div class="nav">
         <p class="prevBtn">Go back</p>
         <button class="nextBtn" type="submit">Next Step</button>
       </div>
 
-    </section>
+    </form>
 
   </main>
 
 
-  <!-- Step 3 end -->
 
-  <!-- Step 4 start -->
+  <!-- 
 
-
-  <!-- Dynamically add subscription and add-on selections here -->
-
-  <!-- Total (per month/year)
-
-  Go Back
-  Confirm -->
-
-  <!-- Step 4 end -->
-
-  <!-- Step 5 start -->
-
-  <!-- Thank you!
-
-  Thanks for confirming your subscription! We hope you have fun 
-  using our platform. If you ever need support, please feel free 
-  to email us at support@loremgaming.com.
+ 
 
   Step 5 end -->
 
