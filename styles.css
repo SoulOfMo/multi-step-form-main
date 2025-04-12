@@ -6,7 +6,7 @@
   --purplish-blue: hsl(243, 100%, 62%);
   --pastel-blue: hsl(228, 100%, 84%);
   --light-blue: hsl(206, 94%, 87%);
-  --strawberry-red: hsl(345, 1.90%, 40.80%);
+  --strawberry-red: hsl(354, 84%, 57%);
   --cool-gray: hsl(231, 11%, 63%);
   --light-gray: hsl(229, 24%, 87%);
   --magnolia: hsl(217, 100%, 97%);
@@ -55,16 +55,6 @@ select {
   font: inherit;
   color: inherit;
 }
-
-.hidden {
-  display: none;
-}
-
-.hide-el {
-  opacity: 0;
-}
-
-
 
 /* main style */
 
@@ -253,6 +243,13 @@ label.plan:hover {
   cursor: pointer;
 }
 
+label.plan div {
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .plan img {
   width: 40px;
 }
@@ -274,6 +271,10 @@ input[type="radio"]:checked~label {
   border: 2px solid var(--purplish-blue);
 }
 
+span.free {
+  color: var(--marine-blue)
+}
+
 .period {
   display: flex;
   flex-direction: row;
@@ -283,6 +284,7 @@ input[type="radio"]:checked~label {
   max-height: 45px;
   border-radius: 10px;
   margin-top: 2em;
+  align-items: center;
 }
 
 .period p {
@@ -332,15 +334,22 @@ input[type="radio"]:checked~label {
   border-radius: 10px;
 }
 
+.add-ons label:has(input:checked) {
+  background-color: var(--magnolia);
+  border: 1px solid var(--marine-blue);
+}
+
 .add-ons input[type="checkbox"] {
   border: unset;
   width: 20px;
   margin: unset;
   margin-right: 20px;
+  accent-color: var(--purplish-blue);
 }
 
-.add-ons label:focus-within {
+.add-ons label:hover {
   border: 1px solid var(--purplish-blue);
+  cursor: pointer;
 }
 
 .add-ons p {
@@ -432,6 +441,17 @@ input[type="radio"]:checked~label {
   width: 400px;
 }
 
+.total-price {
+  margin: 32px 12px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--cool-gray);
+}
+
+.total-amount {
+  color: var(--purplish-blue);
+  font-weight: var(--ff-lg);
+}
 
 /*  */
 .nav {
@@ -455,13 +475,14 @@ button {
 
 button:hover {
   cursor: pointer;
-  background-color: hsl(213, 96%, 18%, 0.9);
+  background-color: hsl(243, 100%, 62%, 0.7);
 }
 
 .nav p {
   margin: unset;
-  color: var(--light-gray);
-  font-weight: var(--ff-md);
+  color: var(--cool-gray);
+  font-weight: var(--ff-lg);
+  text-transform: capitalize;
 }
 
 .nav p:hover {
@@ -470,17 +491,34 @@ button:hover {
   cursor: pointer;
 }
 
+.hide-el {
+  opacity: 0;
+}
+
+.hide-navbtn {
+  display: none;
+}
+
 /* Mobile Viewport */
 
 @media (max-width:800px) {
   main {
     grid-template-columns: repeat(1, 1fr);
     position: relative;
-    background-color: var(--magnolia);
     gap: unset;
     height: 800px;
     padding: unset;
     width: 500px;
+    background-color: var(--magnolia);
+  }
+
+  .page {
+    margin-right: 0;
+    width: -webkit-fill-available;
+  }
+
+  .page p {
+    font-size: 16px;
   }
 
   #sidebar {
@@ -490,6 +528,7 @@ button:hover {
     height: 200px;
     width: 100%;
     align-items: center;
+    justify-content: center;
   }
 
   #sidebar .steps {
@@ -502,36 +541,77 @@ button:hover {
 
   #mainpage {
     display: flex;
-    top: 150px;
+    transform: translateY(-100px);
     background-color: var(--white);
     margin: 0 2em;
-    padding: 0 1em;
+    padding: 0 1em 20px;
     border-radius: 10px;
+    height: 560px;
+  }
+
+  .nav {
+    background-color: var(--white);
+    padding: 16px;
+    align-items: center;
+  }
+
+  button {
+    margin-right: 0;
+  }
+
+  #plans {
+    width: 100%;
+  }
+
+  .plans {
+    display: inherit;
+    flex-direction: column;
+
+  }
+
+  .plans label {
+    flex-direction: row;
+    justify-content: unset;
+    height: unset;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .summary-info {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .summary-info img {
+    margin: unset;
+    margin-bottom: 16px;
   }
 }
 
-.hide-navbtn {
+
+@media (max-width: 450px) {
+  main {
+    width: unset;
+  }
+
+  .summary-info p {
+    width: unset;
+  }
+
+  #mainpage {
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  .add-ons-type span {
+    font-size: 12px;
+  }
+
+}
+
+.hidden {
   display: none;
 }
-
-/* input:invalid {
-  animation: shake 0.5s;
-}
-
-@keyframes shake {
-
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-
-  20%,
-  60% {
-    transform: translateX(-5px);
-  }
-
-  40%,
-  80% {
-    transform: translateX(5px);
-  }
-} */

@@ -12,6 +12,7 @@ const toggleBtn = document.querySelector(".toggle"),
   nextBtn = document.querySelector(".nextBtn"),
   // Plans ELEMENT
   planPrices = document.querySelectorAll(".plan-prices"),
+  freeElements = document.querySelectorAll(".free"),
   planInput = document.querySelectorAll("input[type='radio']"),
   //Summary Section Element
   summaryContainer = document.getElementById("summary");
@@ -241,9 +242,6 @@ const updateAddOnsSummary = function (addOnPackage) {
 //initalization
 thePickAddOns();
 
-//Rector HTML code
-// Refactor CSS code
-
 // Duration Type
 slider.addEventListener("click", () => {
   state.addOns.clear();
@@ -259,7 +257,13 @@ slider.addEventListener("click", () => {
   planInput[state.selectedPlan.index].checked = true;
 
   planPrices.forEach((priceElement, id) => {
-    priceElement.textContent = `+$${plan.planPrices[id]}/${plan.planDuration}`;
+    priceElement.textContent = `$${plan.planPrices[id]}/${plan.planDuration}`;
+  });
+
+  freeElements.forEach((freeElement) => {
+    isYearly
+      ? (freeElement.textContent = "2 months free")
+      : (freeElement.textContent = "");
   });
 
   addOnsContainer.innerHTML = addOnsContents(plan);
@@ -305,6 +309,3 @@ const updateTotalPrice = function () {
     <span class="total-amount">$${total}/${duration}</span>
   `;
 };
-
-// Call this function whenever prices or selections change
-// (after plan changes, add-on changes, etc.)
